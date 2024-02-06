@@ -2,8 +2,12 @@ import { useState } from "react";
 
 const App = () => {
   const [persons, setPersons] = useState([
-    { name: "Arto Hellas", number: "040-1234567" },
+    { name: "Arto Hellas", number: "040-123456", id: 1 },
+    { name: "Ada Lovelace", number: "39-44-5323523", id: 2 },
+    { name: "Dan Abramov", number: "12-43-234345", id: 3 },
+    { name: "Mary Poppendieck", number: "39-23-6423122", id: 4 },
   ]);
+
   //console.log(persons);
   const [newName, setNewName] = useState("");
   //console.log(newName);
@@ -15,11 +19,14 @@ const App = () => {
     //console.log("button initiated", e.target);
     //alert("button pressed");
     console.log(newName);
-    persons.map((ele) =>
-      ele.name === newName
-        ? alert(`${newName} already added to phone book`)
-        : setPersons([...persons, { name: newName, number: newNumbers }])
-    );
+    persons.some((ele) => ele.name === newName)
+      ? alert(`${newName} already added to phone book`)
+      : setPersons([...persons, { name: newName, number: newNumbers }]);
+    // persons.map((ele) =>
+    //   ele.name === newName
+    //     ? alert(`${newName} already added to phone book`)
+    //     : setPersons([...persons, { name: newName, number: newNumbers }])
+    // );
   };
 
   const handleChange = (e) => {
