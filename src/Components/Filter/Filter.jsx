@@ -1,11 +1,11 @@
-const Filter = (prop) => {
+const Filter = ({ handleFilter }) => {
   return (
     <div>
       filter shown with :{" "}
       <input
         type="search"
         placeholder="search contact"
-        onChange={prop.handleFilter}
+        onChange={handleFilter}
       />
     </div>
   );

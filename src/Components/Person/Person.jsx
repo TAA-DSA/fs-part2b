@@ -1,8 +1,8 @@
-const Person = (prop) => {
+const Person = ({ searchKey }) => {
   console.log("Hello from person component");
   return (
     <div>
-      {prop.searchKey.map((ele, index) => (
+      {searchKey.map((ele, index) => (
         <p key={index}>
           {ele.name} {ele.number}
         </p>
