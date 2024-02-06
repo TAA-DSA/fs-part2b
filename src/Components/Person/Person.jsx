@@ -1,5 +1,5 @@
 const Person = ({ searchKey }) => {
-  console.log("Hello from person component");
+  //console.log("Hello from person component");
   return (
     <div>
       {searchKey.map((ele, index) => (

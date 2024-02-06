@@ -5,7 +5,7 @@ const PersonForm = ({
   newNumbers,
   handleNumbers,
 }) => {
-  console.log("Hello from person form");
+  //console.log("Hello from person form");
   //   const { addContact, newName, handleChange, newNumbers, handleNumbers } = prop;
   return (
     <form onSubmit={addContact}>
