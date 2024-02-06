@@ -14,7 +14,7 @@ const App = () => {
   const [newNumbers, setNewNumbers] = useState("");
   //console.log(numbers);
   const [filterWords, setFilterWords] = useState("");
-  console.log(filterWords);
+  //console.log(filterWords);
 
   const addContact = (e) => {
     e.preventDefault();
@@ -42,14 +42,14 @@ const App = () => {
 
   const handleFilter = (e) => {
     //case insensitive
-    console.log(e.target.value);
+    //console.log(e.target.value);
     setFilterWords(e.target.value.toLowerCase());
   };
 
   const searchKey = persons.filter((ele) =>
     ele.name.toLowerCase().includes(filterWords)
   );
-  console.log("searchKey", searchKey);
+  //console.log("searchKey", searchKey);
 
   return (
     <div>
