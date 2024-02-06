@@ -13,6 +13,8 @@ const App = () => {
   //console.log(newName);
   const [newNumbers, setNewNumbers] = useState("");
   //console.log(numbers);
+  const [filterWords, setFilterWords] = useState("");
+  console.log(filterWords);
 
   const addContact = (e) => {
     e.preventDefault();
@@ -35,15 +37,34 @@ const App = () => {
   };
 
   const handleNumbers = (e) => {
-    console.log(e.target.value);
     setNewNumbers(e.target.value);
   };
+
+  const handleFilter = (e) => {
+    //case insensitive
+    console.log(e.target.value);
+    setFilterWords(e.target.value.toLowerCase());
+  };
+
+  const searchKey = persons.filter((ele) =>
+    ele.name.toLowerCase().includes(filterWords)
+  );
+  console.log("searchKey", searchKey);
 
   return (
     <div>
       <h2>Phonebook</h2>
       <form onSubmit={addContact}>
-        <div>debug: {newName}</div>
+        {/* <div>debug: {newName}</div> */}
+        <div>
+          filter shown with :{" "}
+          <input
+            type="search"
+            placeholder="search contact"
+            onChange={handleFilter}
+          />
+        </div>
+        <h3>add a new contact</h3>
         <div>
           name: <input value={newName} onChange={handleChange} />
         </div>
@@ -55,7 +76,7 @@ const App = () => {
         </div>
       </form>
       <h2>Numbers</h2>
-      {persons.map((ele, index) => (
+      {searchKey.map((ele, index) => (
         <p key={index}>
           {ele.name} {ele.number}
         </p>
