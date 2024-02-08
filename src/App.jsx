@@ -3,19 +3,10 @@ import Filter from "./Components/Filter/Filter";
 import PersonForm from "./Components/PersonForm/PersonForm";
 import Person from "./Components/Person/Person";
 import axios from "axios";
+//import Service from "../src/Services/contact.js";
 
 const App = () => {
   const [persons, setPersons] = useState([]);
-
-  useEffect(() => {
-    console.log("effect");
-    axios.get("http://localhost:3001/persons").then((response) => {
-      console.log("promise fulfilled");
-      setPersons(response.data);
-    });
-  }, []);
-  console.log("render", persons.length, "persons");
-
   //console.log(persons);
   const [newName, setNewName] = useState("");
   //console.log(newName);
@@ -24,19 +15,44 @@ const App = () => {
   const [filterWords, setFilterWords] = useState("");
   //console.log(filterWords);
 
+  useEffect(() => {
+    console.log("effect");
+    axios.get("http://localhost:3001/persons").then((response) => {
+      console.log("promise fulfilled");
+      setPersons(response.data);
+    });
+  }, []);
+
+  console.log("render", persons.length, "persons");
+
   const addContact = (e) => {
     e.preventDefault();
     //console.log("button initiated", e.target);
     //alert("button pressed");
-    console.log(newName);
-    persons.some((ele) => ele.name === newName)
-      ? alert(`${newName} already added to phone book`)
-      : setPersons([...persons, { name: newName, number: newNumbers }]);
-    // persons.map((ele) =>
-    //   ele.name === newName
-    //     ? alert(`${newName} already added to phone book`)
-    //     : setPersons([...persons, { name: newName, number: newNumbers }])
-    // );
+    const contactObject = {
+      name: newName,
+      number: newNumbers,
+      // important: Math.random() < 0.5,
+    };
+
+    console.log("Name", contactObject.name);
+
+    persons.some((ele) =>
+      ele.name === contactObject.name
+        ? alert(`${contactObject.name} already added to phone book`)
+        : axios
+            .post("http://localhost:3001/persons", contactObject)
+            .then((response) => {
+              console.log(response.data.name);
+            })
+    );
+
+    //console.log(newName);
+    // persons.some((ele) =>
+    //       ele.name === response.data.name
+    //         ? alert(`${response.data.name} already added to phone book`)
+    //         : setNewName([...persons, { name: newName, number: newNumbers }])
+    //     );
   };
 
   const handleChange = (e) => {
