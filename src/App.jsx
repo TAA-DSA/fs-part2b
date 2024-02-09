@@ -3,7 +3,10 @@ import Filter from "./Components/Filter/Filter";
 import PersonForm from "./Components/PersonForm/PersonForm";
 import Person from "./Components/Person/Person";
 import axios from "axios";
+import { v4 as uuidv4 } from "uuid";
 //import Service from "../src/Services/contact.js";
+
+console.log(uuidv4());
 
 const App = () => {
   const [persons, setPersons] = useState([]);
@@ -30,6 +33,7 @@ const App = () => {
     //console.log("button initiated", e.target);
     //alert("button pressed");
     const contactObject = {
+      id: uuidv4,
       name: newName,
       number: newNumbers,
       // important: Math.random() < 0.5,
@@ -37,8 +41,11 @@ const App = () => {
 
     console.log("Name", contactObject.name);
 
+    //bug: Dectects the duplicate name
+    //but still writing it in JSON file
+
     persons.some((ele) =>
-      ele.name === contactObject.name
+      ele.name.toLowerCase() === contactObject.name.toLowerCase()
         ? alert(`${contactObject.name} already added to phone book`)
         : axios
             .post("http://localhost:3001/persons", contactObject)
