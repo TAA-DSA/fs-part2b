@@ -2,9 +2,8 @@ import { useState, useEffect } from "react";
 import Filter from "./Components/Filter/Filter";
 import PersonForm from "./Components/PersonForm/PersonForm";
 import Person from "./Components/Person/Person";
-import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
-//import Service from "../src/Services/contact.js";
+import contactService from "../src/Services/contact.js";
 
 console.log(uuidv4());
 
@@ -20,7 +19,7 @@ const App = () => {
 
   useEffect(() => {
     console.log("effect");
-    axios.get("http://localhost:3001/persons").then((response) => {
+    contactService.getAll().then((response) => {
       console.log("promise fulfilled");
       setPersons(response.data);
     });
@@ -30,29 +29,30 @@ const App = () => {
 
   const addContact = (e) => {
     e.preventDefault();
-    //console.log("button initiated", e.target);
-    //alert("button pressed");
+    console.log("addContact", e.target.value);
+
     const contactObject = {
       id: uuidv4,
       name: newName,
       number: newNumbers,
-      // important: Math.random() < 0.5,
     };
 
     console.log("Name", contactObject.name);
 
+    console.log("Add new contact", persons);
+
+    //Check this logic again as there is a bug
+    persons.some((elements) =>
+      elements.name === contactObject.name
+        ? alert(`${contactObject.name} already added to phone book`)
+        : contactService.create(contactObject).then((res) => {
+            console.log(res.data);
+            setPersons([...persons, res.data]);
+          })
+    );
+
     //bug: Dectects the duplicate name
     //but still writing it in JSON file
-
-    persons.some((ele) =>
-      ele.name.toLowerCase() === contactObject.name.toLowerCase()
-        ? alert(`${contactObject.name} already added to phone book`)
-        : axios
-            .post("http://localhost:3001/persons", contactObject)
-            .then((response) => {
-              console.log(response.data.name);
-            })
-    );
 
     //console.log(newName);
     // persons.some((ele) =>
@@ -63,24 +63,26 @@ const App = () => {
   };
 
   const handleChange = (e) => {
-    //console.log(e.target.value);
+    console.log("newName", e.target.value);
     setNewName(e.target.value);
   };
 
   const handleNumbers = (e) => {
+    console.log("newNumbers", e.target.value);
     setNewNumbers(e.target.value);
   };
 
   const handleFilter = (e) => {
-    //case insensitive
-    //console.log(e.target.value);
     setFilterWords(e.target.value.toLowerCase());
   };
 
   const searchKey = persons.filter((ele) =>
     ele.name.toLowerCase().includes(filterWords)
   );
-  //console.log("searchKey", searchKey);
+
+  const deleteContact = () => {
+    console.log("Contact deleted");
+  };
 
   return (
     <div>
@@ -98,7 +100,7 @@ const App = () => {
       />
 
       <h2>Numbers</h2>
-      <Person searchKey={searchKey} />
+      <Person searchKey={searchKey} deleteContact={deleteContact} />
     </div>
   );
 };

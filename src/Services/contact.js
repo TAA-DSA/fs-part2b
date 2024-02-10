@@ -11,10 +11,12 @@ const getAll = () => {
   return axios.get(baseUrl);
 };
 
+//post request
 const create = (contactObj) => {
   return axios.post(baseUrl, contactObj);
 };
 
+//put request
 const update = (id, contactObj) => {
   return axios.put(`${baseUrl}/${id}`, contactObj);
 };
