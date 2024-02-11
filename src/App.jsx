@@ -27,9 +27,10 @@ const App = () => {
 
   console.log("render", persons.length, "persons");
 
-  const addContact = (e) => {
+  const addContact = async (e) => {
     e.preventDefault();
-    console.log("addContact", e.target.value);
+
+    //console.log("addContact", e.target.value);
 
     const contactObject = {
       name: newName,
@@ -39,17 +40,27 @@ const App = () => {
 
     console.log("Name", contactObject.name);
 
-    console.log("Add new contact", persons);
+    //console.log("Add new contact", persons);
 
+    const warning = `${contactObject.name} already added to phone book`;
+
+    if (
+      persons.some(
+        (ele) =>
+          ele.name.toLowerCase() === contactObject.name.toLocaleLowerCase()
+      )
+    ) {
+      alert(warning);
+    } else {
+      try {
+        await contactService.create(contactObject);
+        setPersons([...persons, contactObject]);
+        console.log("Contact added successfully");
+      } catch (error) {
+        console.error("Error adding contact", error);
+      }
+    }
     //Check this logic again as there is a bug
-    persons.some((elements) =>
-      elements.name === contactObject.name
-        ? alert(`${contactObject.name} already added to phone book`)
-        : contactService.create(contactObject).then((res) => {
-            console.log(res.data);
-            setPersons([...persons, res.data]);
-          })
-    );
 
     //bug: Dectects the duplicate name
     //but still writing it in JSON file
@@ -80,21 +91,23 @@ const App = () => {
     ele.name.toLowerCase().includes(filterWords)
   );
 
-  const deleteContact = (e) => {
+  const deleteContact = async (e) => {
     //console.log(persons);
     const indexOfBtn = e.target.id;
-    console.log(indexOfBtn);
-    const targetID = persons.map((ele) => ele.id);
-    const id = targetID[indexOfBtn];
-    console.log(id);
+    //console.log(indexOfBtn);
+
     const confirm = `Delete ${persons[indexOfBtn].name} ?`;
-    console.log(confirm);
+    //console.log(confirm);
     if (window.confirm(confirm)) {
-      console.log("Phone number removed");
-      contactService.deleteContact(id).then((res) => {
-        console.log(res.data.id);
-        setPersons(persons.filter((item) => item.id !== res.data.id));
-      });
+      try {
+        const targetID = persons.map((ele) => ele.id);
+        const id = targetID[indexOfBtn];
+        console.log(id);
+        await contactService.deleteContact(id);
+        setPersons(persons.filter((item) => item.id !== id));
+      } catch (error) {
+        console.error("Error deleting contact", error);
+      }
     } else {
       null;
     }
