@@ -19,10 +19,16 @@ const App = () => {
 
   useEffect(() => {
     console.log("effect");
-    contactService.getAll().then((response) => {
-      console.log("promise fulfilled");
-      setPersons(response.data);
-    });
+    const fetchData = async () => {
+      try {
+        const response = await contactService.getAll();
+        console.log(response);
+        setPersons(response.data);
+      } catch (error) {
+        console.error("Error fetching data", error);
+      }
+    };
+    fetchData();
   }, []);
 
   console.log("render", persons.length, "persons");
