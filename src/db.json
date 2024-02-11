@@ -1,48 +1,23 @@
 {
   "persons": [
     {
-      "name": "Arto Hellas",
-      "number": "040-123456",
-      "id": "1"
-    },
-    {
-      "name": "Ada Lovelace",
-      "number": "39-44-5323523",
-      "id": "2"
-    },
-    {
-      "name": "Dan Abramov",
-      "number": "12-43-234345",
-      "id": "3"
-    },
-    {
-      "name": "Mary Poppendieck",
-      "number": "39-23-6423122",
-      "id": "4"
-    },
-    {
-      "id": "3d4a",
-      "name": "Nina PatelField",
-      "number": "198-2467-190"
-    },
-    {
-      "id": "430a",
-      "name": "Rosie Mary",
-      "number": "198-2467-190"
-    },
-    {
       "id": "a870",
       "name": "Nina PatelField",
       "number": "991-0789-1889"
     },
     {
-      "id": "c2cb",
-      "name": "Nina PatelField",
+      "id": "5589",
+      "name": "Rosie PatelField",
+      "number": "123-4567-789"
+    },
+    {
+      "id": "fbb4",
+      "name": "Rosie Patelfield",
       "number": ""
     },
     {
-      "id": "b11f",
-      "name": "Arto Hellas",
+      "id": "653e",
+      "name": "Rosie Patelfield",
       "number": ""
     }
   ]

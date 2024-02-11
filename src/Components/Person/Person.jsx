@@ -5,7 +5,9 @@ const Person = ({ searchKey, deleteContact }) => {
       {searchKey.map((ele, index) => (
         <p key={index}>
           {ele.name} {ele.number}{" "}
-          <button onClick={deleteContact}>Delete</button>
+          <button id={index} onClick={deleteContact}>
+            Delete
+          </button>
         </p>
       ))}
     </div>

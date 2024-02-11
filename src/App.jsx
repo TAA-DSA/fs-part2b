@@ -32,9 +32,9 @@ const App = () => {
     console.log("addContact", e.target.value);
 
     const contactObject = {
-      id: uuidv4,
       name: newName,
       number: newNumbers,
+      id: uuidv4,
     };
 
     console.log("Name", contactObject.name);
@@ -80,8 +80,28 @@ const App = () => {
     ele.name.toLowerCase().includes(filterWords)
   );
 
-  const deleteContact = () => {
-    console.log("Contact deleted");
+  const deleteContact = (e) => {
+    //console.log(persons);
+    const indexOfBtn = e.target.id;
+    console.log(indexOfBtn);
+    const targetID = persons.map((ele) => ele.id);
+    const id = targetID[indexOfBtn];
+    console.log(id);
+    const confirm = `Delete ${persons[indexOfBtn].name} ?`;
+    console.log(confirm);
+    if (window.confirm(confirm)) {
+      console.log("Phone number removed");
+      contactService.deleteContact(id).then((res) => {
+        console.log(res.data.id);
+        setPersons(persons.filter((item) => item.id !== res.data.id));
+      });
+    } else {
+      null;
+    }
+    //console.log("Delete", indexOfBtn);
+    //const confirm = `Delete ${persons[indexOfBtn].name} ?`;
+    //console.log(confirm);
+    //contactService.deleteContact()
   };
 
   return (
