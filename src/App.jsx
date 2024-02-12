@@ -5,8 +5,6 @@ import Person from "./Components/Person/Person";
 import { v4 as uuidv4 } from "uuid";
 import contactService from "../src/Services/contact.js";
 
-console.log(uuidv4());
-
 const App = () => {
   const [persons, setPersons] = useState([]);
   //console.log(persons);
@@ -33,7 +31,7 @@ const App = () => {
 
   console.log("render", persons.length, "persons");
 
-  const addContact = async (e) => {
+  const addContact = (e) => {
     e.preventDefault();
 
     //console.log("addContact", e.target.value);
@@ -46,9 +44,43 @@ const App = () => {
 
     console.log("Name", contactObject.name);
 
+    const updateNumber = () => {
+      persons.some((item) => {
+        if (
+          item.name.toLocaleLowerCase() ===
+          contactObject.name.toLocaleLowerCase()
+        ) {
+          const id = item.id;
+          console.log(id);
+          const numberUpdate = async () => {
+            try {
+              const response = await contactService.update(id, contactObject);
+              const updatedContact = response.data.number;
+              const updatedPersons = persons.map((person) =>
+                person.id === updatedContact.id ? updatedContact : person
+              );
+              setPersons(updatedPersons);
+            } catch (error) {
+              console.log("Error updating number", error);
+            }
+          };
+          numberUpdate();
+        }
+      });
+    };
     //console.log("Add new contact", persons);
 
-    const warning = `${contactObject.name} already added to phone book`;
+    const sendData = async () => {
+      try {
+        const response = await contactService.create(contactObject);
+        setPersons([...persons, response.data]);
+        console.log("Contact added successfully");
+      } catch (error) {
+        console.error("Error adding contact", error);
+      }
+    };
+
+    const warning = `${contactObject.name} already added to phone book, replace the old number with a new one ?`;
 
     if (
       persons.some(
@@ -56,27 +88,13 @@ const App = () => {
           ele.name.toLowerCase() === contactObject.name.toLocaleLowerCase()
       )
     ) {
-      alert(warning);
-    } else {
-      try {
-        await contactService.create(contactObject);
-        setPersons([...persons, contactObject]);
-        console.log("Contact added successfully");
-      } catch (error) {
-        console.error("Error adding contact", error);
+      if (window.confirm(warning)) {
+        console.log("Update number");
+        updateNumber();
       }
+    } else {
+      sendData();
     }
-    //Check this logic again as there is a bug
-
-    //bug: Dectects the duplicate name
-    //but still writing it in JSON file
-
-    //console.log(newName);
-    // persons.some((ele) =>
-    //       ele.name === response.data.name
-    //         ? alert(`${response.data.name} already added to phone book`)
-    //         : setNewName([...persons, { name: newName, number: newNumbers }])
-    //     );
   };
 
   const handleChange = (e) => {
@@ -108,7 +126,7 @@ const App = () => {
       try {
         const targetID = persons.map((ele) => ele.id);
         const id = targetID[indexOfBtn];
-        console.log(id);
+        //console.log(id);
         await contactService.deleteContact(id);
         setPersons(persons.filter((item) => item.id !== id));
       } catch (error) {
