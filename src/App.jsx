@@ -91,7 +91,7 @@ const App = () => {
         console.log("Contact added successfully");
         setMessage(`Added ${response.data.name}`);
         setTimeout(() => {
-          setMessage(null);
+          setMessage("");
         }, 5000);
       } catch (error) {
         console.error("Error adding contact", error);
@@ -156,7 +156,9 @@ const App = () => {
         setErrorMessage(
           `Information of ${persons[indexOfBtn].name} has already been removed`
         );
-
+        setTimeout(() => {
+          setErrorMessage("");
+        }, 5000);
         console.error("Error deleting contact", error);
       }
     } else {
