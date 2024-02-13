@@ -4,12 +4,15 @@ import PersonForm from "./Components/PersonForm/PersonForm";
 import Person from "./Components/Person/Person";
 import { v4 as uuidv4 } from "uuid";
 import contactService from "../src/Services/contact.js";
+import Notification from "./Components/Notification/Notification.jsx";
+import "./index.css";
 
 const App = () => {
   const [persons, setPersons] = useState([]);
   const [newName, setNewName] = useState("");
   const [newNumbers, setNewNumbers] = useState("");
   const [filterWords, setFilterWords] = useState("");
+  const [message, setMessage] = useState("");
 
   useEffect(() => {
     console.log("effect");
@@ -61,6 +64,11 @@ const App = () => {
               );
               console.log(updateState);
               setPersons(updateState);
+              setNewNumbers(updatedNumber);
+              setTimeout(() => {
+                setNewNumbers(null);
+              }, 5000);
+              console.log("Number from put request", newNumbers);
             } catch (error) {
               console.log("Error updating number", error);
             }
@@ -77,6 +85,10 @@ const App = () => {
         const response = await contactService.create(contactObject);
         setPersons([...persons, response.data]);
         console.log("Contact added successfully");
+        setMessage(`Added ${response.data.name}`);
+        setTimeout(() => {
+          setMessage(null);
+        }, 5000);
       } catch (error) {
         console.error("Error adding contact", error);
       }
@@ -100,9 +112,14 @@ const App = () => {
   };
 
   const handleChange = (e) => {
-    console.log("newName", e.target.value);
-    setNewName(e.target.value);
+    const contactName = e.target.value;
+    console.log("handleChange", contactName);
+    console.log("newName", contactName);
+    setNewName(contactName);
+    //setMessage(`Added ${contactName}`);
   };
+
+  console.log(message);
 
   const handleNumbers = (e) => {
     console.log("newNumbers", e.target.value);
@@ -142,10 +159,11 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification message={message} />
       <div>
         <Filter handleFilter={handleFilter} />
       </div>
-      <h3>add a new contact</h3>
+      <h3>Added a new contact</h3>
       <PersonForm
         addContact={addContact}
         newName={newName}
@@ -153,7 +171,6 @@ const App = () => {
         newNumbers={newNumbers}
         handleNumbers={handleNumbers}
       />
-
       <h2>Numbers</h2>
       <Person searchKey={searchKey} deleteContact={deleteContact} />
     </div>

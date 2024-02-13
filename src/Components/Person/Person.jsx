@@ -3,7 +3,7 @@ const Person = ({ searchKey, deleteContact }) => {
   return (
     <div>
       {searchKey.map((ele, index) => (
-        <p key={index}>
+        <p className="contact" key={index}>
           {ele.name} {ele.number}{" "}
           <button id={index} onClick={deleteContact}>
             Delete
