@@ -55,11 +55,16 @@ const App = () => {
           const numberUpdate = async () => {
             try {
               const response = await contactService.update(id, contactObject);
-              const updatedContact = response.data.number;
-              const updatedPersons = persons.map((person) =>
-                person.id === updatedContact.id ? updatedContact : person
+              console.log(response.data);
+              const updatedNumber = response.data.number;
+              //console.log(updatedNumber);
+              const updateState = persons.map((person) =>
+                person.name === response.data.name
+                  ? { ...person, number: updatedNumber }
+                  : person
               );
-              setPersons(updatedPersons);
+              console.log(updateState);
+              setPersons(updateState);
             } catch (error) {
               console.log("Error updating number", error);
             }
@@ -68,6 +73,7 @@ const App = () => {
         }
       });
     };
+
     //console.log("Add new contact", persons);
 
     const sendData = async () => {
@@ -135,10 +141,6 @@ const App = () => {
     } else {
       null;
     }
-    //console.log("Delete", indexOfBtn);
-    //const confirm = `Delete ${persons[indexOfBtn].name} ?`;
-    //console.log(confirm);
-    //contactService.deleteContact()
   };
 
   return (
