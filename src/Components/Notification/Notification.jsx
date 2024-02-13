@@ -1,7 +1,9 @@
-// import "../../index.css";
-
 const Notification = ({ message }) => {
   return <div className="notification">{message}</div>;
 };
 
-export default Notification;
+const ErrorMessage = ({ errorMessage }) => {
+  return <div className="error">{errorMessage}</div>;
+};
+
+export { Notification, ErrorMessage };

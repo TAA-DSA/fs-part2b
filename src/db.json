@@ -1,21 +1,6 @@
 {
   "persons": [
     {
-      "name": "Mary Poppendieck",
-      "number": "39-23-6423122",
-      "id": "4"
-    },
-    {
-      "name": "Nina Cutie",
-      "number": "80",
-      "id": "66e4"
-    },
-    {
-      "id": "f295",
-      "name": "Nina Cuties",
-      "number": "123-678-7890"
-    },
-    {
       "id": "2635",
       "name": "Nina Alredo",
       "number": "9991"
@@ -31,19 +16,9 @@
       "number": "111223"
     },
     {
-      "name": "Nina Aziz",
-      "number": "",
-      "id": "39b2"
-    },
-    {
       "name": "nina marie",
       "number": "123",
       "id": "5d2a"
-    },
-    {
-      "id": "3aab",
-      "name": "Roise Hepburn",
-      "number": ""
     },
     {
       "id": "3918",
@@ -59,6 +34,11 @@
       "id": "b92c",
       "name": "Juha Ta",
       "number": "890673"
+    },
+    {
+      "id": "3de1",
+      "name": "HELLO Patty",
+      "number": "897-890"
     }
   ]
 }

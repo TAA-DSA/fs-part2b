@@ -4,7 +4,10 @@ import PersonForm from "./Components/PersonForm/PersonForm";
 import Person from "./Components/Person/Person";
 import { v4 as uuidv4 } from "uuid";
 import contactService from "../src/Services/contact.js";
-import Notification from "./Components/Notification/Notification.jsx";
+import {
+  Notification,
+  ErrorMessage,
+} from "./Components/Notification/Notification.jsx";
 import "./index.css";
 
 const App = () => {
@@ -13,6 +16,7 @@ const App = () => {
   const [newNumbers, setNewNumbers] = useState("");
   const [filterWords, setFilterWords] = useState("");
   const [message, setMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     console.log("effect");
@@ -149,6 +153,10 @@ const App = () => {
         await contactService.deleteContact(id);
         setPersons(persons.filter((item) => item.id !== id));
       } catch (error) {
+        setErrorMessage(
+          `Information of ${persons[indexOfBtn].name} has already been removed`
+        );
+
         console.error("Error deleting contact", error);
       }
     } else {
@@ -160,6 +168,7 @@ const App = () => {
     <div>
       <h2>Phonebook</h2>
       <Notification message={message} />
+      <ErrorMessage errorMessage={errorMessage} />
       <div>
         <Filter handleFilter={handleFilter} />
       </div>
