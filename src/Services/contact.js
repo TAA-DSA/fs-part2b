@@ -18,7 +18,6 @@ const create = (contactObj) => {
 
 //put request
 const update = (id, contactObj) => {
-  console.log(`${baseUrl}/${id}`, contactObj);
   return axios.put(`${baseUrl}/${id}`, contactObj);
 };
 

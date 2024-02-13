@@ -7,13 +7,9 @@ import contactService from "../src/Services/contact.js";
 
 const App = () => {
   const [persons, setPersons] = useState([]);
-  //console.log(persons);
   const [newName, setNewName] = useState("");
-  //console.log(newName);
   const [newNumbers, setNewNumbers] = useState("");
-  //console.log(numbers);
   const [filterWords, setFilterWords] = useState("");
-  //console.log(filterWords);
 
   useEffect(() => {
     console.log("effect");
