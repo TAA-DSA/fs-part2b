@@ -107,7 +107,7 @@ const App = () => {
       )
     ) {
       if (window.confirm(warning)) {
-        console.log("Update number");
+        //console.log("Update number");
         updateNumber();
       }
     } else {
