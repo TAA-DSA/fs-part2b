@@ -1,7 +1,11 @@
-h2 {
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* h2 {
   color: green;
   font-style: italic;
-}
+} */
 
 .contact {
   color: grey;

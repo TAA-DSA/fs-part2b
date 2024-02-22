@@ -54,7 +54,7 @@ const App = () => {
           contactObject.name.toLocaleLowerCase()
         ) {
           const id = item.id;
-          console.log(id);
+          console.log("id from put request", id);
           const numberUpdate = async () => {
             try {
               const response = await contactService.update(id, contactObject);
@@ -168,7 +168,9 @@ const App = () => {
 
   return (
     <div>
-      <h2>Phonebook</h2>
+      <h2 className="flex justify-center py-5  text-4xl font-italic tracking-tight text-green-900 sm:text-6xl">
+        Phonebook
+      </h2>
       {message === "" ? null : <Notification message={message} />}
       {errorMessage === "" ? null : (
         <ErrorMessage errorMessage={errorMessage} />
@@ -177,7 +179,7 @@ const App = () => {
       <div>
         <Filter handleFilter={handleFilter} />
       </div>
-      <h3>Added a new contact</h3>
+      {/* <h3>Added a new contact</h3> */}
       <PersonForm
         addContact={addContact}
         newName={newName}

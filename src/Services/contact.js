@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseUrl = "http://localhost:3001/persons";
+const baseUrl = "http://localhost:3001/api/persons";
 console.log(baseUrl);
 
 console.log("🚀 Hello from Server!!");
@@ -18,6 +18,7 @@ const create = (contactObj) => {
 
 //put request
 const update = (id, contactObj) => {
+  console.log("id from front-end", id);
   return axios.put(`${baseUrl}/${id}`, contactObj);
 };
 
