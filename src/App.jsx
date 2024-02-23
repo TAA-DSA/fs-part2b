@@ -187,7 +187,7 @@ const App = () => {
         newNumbers={newNumbers}
         handleNumbers={handleNumbers}
       />
-      <h2>Numbers</h2>
+      {/* <h2>Numbers</h2> */}
       <Person searchKey={searchKey} deleteContact={deleteContact} />
     </div>
   );
