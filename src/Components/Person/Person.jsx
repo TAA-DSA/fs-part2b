@@ -30,12 +30,3 @@ const Person = ({ searchKey, deleteContact }) => {
 };
 
 export default Person;
-
-// {searchKey.map((ele, index) => (
-//   <p className="contact" key={index}>
-//     {ele.name} {ele.number}{" "}
-//     <button id={index} onClick={deleteContact}>
-//       Delete
-//     </button>
-//   </p>
-// ))}
