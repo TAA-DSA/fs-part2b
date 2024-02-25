@@ -8,22 +8,22 @@ const PersonForm = ({
   //console.log("Hello from person form");
   //   const { addContact, newName, handleChange, newNumbers, handleNumbers } = prop;
   return (
-    <form className="max-w-md mx-auto" onSubmit={addContact}>
-      <div className="py-5">
+    <form className='max-w-md mx-auto' onSubmit={addContact}>
+      <div className='py-5'>
         <h2
-          className="text-center
-         text-green-600"
+          className='text-center
+         text-green-600'
         >
           Add a new contact
         </h2>
       </div>
 
-      <div className="relative z-0 w-full mb-5 group">
+      <div className='relative z-0 w-full mb-5 group'>
         <input
-          type="name"
+          type='name'
           value={newName}
           onChange={handleChange}
-          className="block 
+          className='block 
             py-2.5 px-0 w-full 
             text-sm text-gray-900 
             bg-transparent border-0 
@@ -32,11 +32,11 @@ const PersonForm = ({
            dark:border-gray-600
            dark:focus:border-blue-500 
              focus:outline-none focus:ring-0
-           focus:border-blue-600 peer"
-          placeholder=" "
+           focus:border-blue-600 peer'
+          placeholder=' '
         />
         <label
-          className="peer-focus:font-medium 
+          className='peer-focus:font-medium 
         absolute 
         text-sm
        text-gray-500
@@ -51,23 +51,23 @@ const PersonForm = ({
        peer-focus:dark:text-blue-500 
        peer-placeholder-shown:scale-100 
        peer-placeholder-shown:translate-y-0 
-       peer-focus:scale-75 peer-focus:-translate-y-6"
+       peer-focus:scale-75 peer-focus:-translate-y-6'
         >
           Name
         </label>
       </div>
       <div
-        className="relative 
+        className='relative 
       z-0 
       w-full 
       mb-5 
-      group"
+      group'
       >
         <input
-          type="phone number"
+          type='phone number'
           value={newNumbers}
           onChange={handleNumbers}
-          className="block 
+          className='block 
           py-2.5 
           px-0 w-full 
           text-sm
@@ -78,12 +78,12 @@ const PersonForm = ({
          dark:border-gray-600
          dark:focus:border-blue-500 
           focus:outline-none focus:ring-0
-         focus:border-blue-600 peer"
-          placeholder=" "
+         focus:border-blue-600 peer'
+          placeholder=' '
           required
         />
         <label
-          className="peer-focus:font-medium 
+          className='peer-focus:font-medium 
         absolute 
         text-sm
        text-grey-500
@@ -97,27 +97,21 @@ const PersonForm = ({
        peer-focus:dark:text-blue-500 
        peer-placeholder-shown:scale-100 
        peer-placeholder-shown:translate-y-0 
-       peer-focus:scale-75 peer-focus:-translate-y-6"
+       peer-focus:scale-75 peer-focus:-translate-y-6'
         >
           Phone Number
         </label>
       </div>
-
-      <button
-        type="submit"
-        className="text-white
-         bg-green-700
-         hover:bg-green-800 
-         focus:ring-4 focus:outline-none
-         focus:ring-blue-300 font-medium 
-         rounded-lg text-sm w-full 
-         sm:w-auto px-5 py-2.5 text-center
-          dark:bg-green-600"
-      >
-        Save Contact
-      </button>
+      <div className='flex justify-center'>
+        <button
+          type='submit'
+          className='flex align-middle gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-green-600 hover:text-green-800 disabled:opacity-50 disabled:pointer-events-none dark:text-green-500 dark:hover:text-green-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600'
+        >
+          Save Contact
+        </button>
+      </div>
     </form>
-  );
-};
+  )
+}
 
-export default PersonForm;
+export default PersonForm
