@@ -1,41 +1,41 @@
-import { useState, useEffect } from "react";
-import Filter from "./Components/Filter/Filter";
-import PersonForm from "./Components/PersonForm/PersonForm";
-import Person from "./Components/Person/Person";
-import { v4 as uuidv4 } from "uuid";
-import contactService from "../src/Services/contact.js";
+import { useState, useEffect } from 'react'
+import Filter from './Components/Filter/Filter'
+import PersonForm from './Components/PersonForm/PersonForm'
+import Person from './Components/Person/Person'
+import { v4 as uuidv4 } from 'uuid'
+import contactService from '../src/Services/contact.js'
 import {
   Notification,
   ErrorMessage,
-} from "./Components/Notification/Notification.jsx";
-import "./index.css";
+} from './Components/Notification/Notification.jsx'
+import './index.css'
 
 const App = () => {
-  const [persons, setPersons] = useState([]);
-  const [newName, setNewName] = useState("");
-  const [newNumbers, setNewNumbers] = useState("");
-  const [filterWords, setFilterWords] = useState("");
-  const [message, setMessage] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
+  const [persons, setPersons] = useState([])
+  const [newName, setNewName] = useState('')
+  const [newNumbers, setNewNumbers] = useState('')
+  const [filterWords, setFilterWords] = useState('')
+  const [message, setMessage] = useState('')
+  const [errorMessage, setErrorMessage] = useState('')
 
   useEffect(() => {
-    console.log("effect");
+    console.log('effect')
     const fetchData = async () => {
       try {
-        const response = await contactService.getAll();
-        console.log(response);
-        setPersons(response.data);
+        const response = await contactService.getAll()
+        console.log(response)
+        setPersons(response.data)
       } catch (error) {
-        console.error("Error fetching data", error);
+        console.error('Error fetching data', error)
       }
-    };
-    fetchData();
-  }, []);
+    }
+    fetchData()
+  }, [])
 
-  console.log("render", persons.length, "persons");
+  console.log('render', persons.length, 'persons')
 
   const addContact = (e) => {
-    e.preventDefault();
+    e.preventDefault()
 
     //console.log("addContact", e.target.value);
 
@@ -43,9 +43,9 @@ const App = () => {
       name: newName,
       number: newNumbers,
       id: uuidv4,
-    };
+    }
 
-    console.log("Name", contactObject.name);
+    console.log('Name', contactObject.name)
 
     const updateNumber = () => {
       persons.some((item) => {
@@ -53,52 +53,56 @@ const App = () => {
           item.name.toLocaleLowerCase() ===
           contactObject.name.toLocaleLowerCase()
         ) {
-          const id = item.id;
-          console.log("id from put request", id);
+          const id = item.id
+          console.log('id from put request', id)
           const numberUpdate = async () => {
             try {
-              const response = await contactService.update(id, contactObject);
-              console.log(response.data);
-              const updatedNumber = response.data.number;
+              const response = await contactService.update(id, contactObject)
+              console.log(response.data)
+              const updatedNumber = response.data.number
               //console.log(updatedNumber);
               const updateState = persons.map((person) =>
                 person.name === response.data.name
                   ? { ...person, number: updatedNumber }
                   : person
-              );
-              console.log(updateState);
-              setPersons(updateState);
-              setNewNumbers(updatedNumber);
+              )
+              console.log(updateState)
+              setPersons(updateState)
+              setNewNumbers(updatedNumber)
               setTimeout(() => {
-                setNewNumbers(null);
-              }, 5000);
-              console.log("Number from put request", newNumbers);
+                setNewNumbers(null)
+              }, 5000)
+              console.log('Number from put request', newNumbers)
             } catch (error) {
-              console.log("Error updating number", error);
+              console.log('Error updating number', error)
             }
-          };
-          numberUpdate();
+          }
+          numberUpdate()
         }
-      });
-    };
+      })
+    }
 
     //console.log("Add new contact", persons);
 
     const sendData = async () => {
       try {
-        const response = await contactService.create(contactObject);
-        setPersons([...persons, response.data]);
-        console.log("Contact added successfully");
-        setMessage(`Added ${response.data.name}`);
+        const response = await contactService.create(contactObject)
+        setPersons([...persons, response.data])
+        console.log('Contact added successfully')
+        setMessage(`Added ${response.data.name}`)
         setTimeout(() => {
-          setMessage("");
-        }, 5000);
+          setMessage('')
+        }, 5000)
       } catch (error) {
-        console.error("Error adding contact", error);
+        const dispalyWarning = error.response.data.error
+        setErrorMessage(dispalyWarning)
+        setTimeout(() => {
+          setErrorMessage('')
+        }, 5000)
       }
-    };
+    }
 
-    const warning = `${contactObject.name} already added to phone book, replace the old number with a new one ?`;
+    const warning = `${contactObject.name} already added to phone book, replace the old number with a new one ?`
 
     if (
       persons.some(
@@ -108,71 +112,71 @@ const App = () => {
     ) {
       if (window.confirm(warning)) {
         //console.log("Update number");
-        updateNumber();
+        updateNumber()
       }
     } else {
-      sendData();
+      sendData()
     }
-  };
+  }
 
   const handleChange = (e) => {
-    const contactName = e.target.value;
-    console.log("handleChange", contactName);
-    console.log("newName", contactName);
-    setNewName(contactName);
+    const contactName = e.target.value
+    console.log('handleChange', contactName)
+    console.log('newName', contactName)
+    setNewName(contactName)
     //setMessage(`Added ${contactName}`);
-  };
+  }
 
-  console.log(message);
+  console.log(message)
 
   const handleNumbers = (e) => {
-    console.log("newNumbers", e.target.value);
-    setNewNumbers(e.target.value);
-  };
+    console.log('newNumbers', e.target.value)
+    setNewNumbers(e.target.value)
+  }
 
   const handleFilter = (e) => {
-    setFilterWords(e.target.value.toLowerCase());
-  };
+    setFilterWords(e.target.value.toLowerCase())
+  }
 
   const searchKey = persons.filter((ele) =>
     ele.name.toLowerCase().includes(filterWords)
-  );
+  )
 
   const deleteContact = async (e) => {
     //console.log(persons);
-    const indexOfBtn = e.target.id;
+    const indexOfBtn = e.target.id
     //console.log(indexOfBtn);
 
-    const confirm = `Delete ${persons[indexOfBtn].name} ?`;
+    const confirm = `Delete ${persons[indexOfBtn].name} ?`
     //console.log(confirm);
     if (window.confirm(confirm)) {
       try {
-        const targetID = persons.map((ele) => ele.id);
-        const id = targetID[indexOfBtn];
+        const targetID = persons.map((ele) => ele.id)
+        const id = targetID[indexOfBtn]
         //console.log(id);
-        await contactService.deleteContact(id);
-        setPersons(persons.filter((item) => item.id !== id));
+        await contactService.deleteContact(id)
+        setPersons(persons.filter((item) => item.id !== id))
       } catch (error) {
         setErrorMessage(
           `Information of ${persons[indexOfBtn].name} has already been removed`
-        );
+        )
         setTimeout(() => {
-          setErrorMessage("");
-        }, 5000);
-        console.error("Error deleting contact", error);
+          setErrorMessage('')
+        }, 5000)
+        console.error('Error deleting contact', error)
       }
     } else {
-      null;
+      null
     }
-  };
+  }
 
   return (
     <div>
-      <h2 className="flex justify-center py-5  text-4xl font-italic tracking-tight text-green-900 sm:text-6xl">
+      <h2 className='flex justify-center py-5  text-4xl font-italic tracking-tight text-green-900 sm:text-6xl'>
         Phonebook
       </h2>
-      {message === "" ? null : <Notification message={message} />}
-      {errorMessage === "" ? null : (
+      {message === '' ? null : <Notification message={message} />}
+      {errorMessage === '' ? null : (
         <ErrorMessage errorMessage={errorMessage} />
       )}
 
@@ -190,7 +194,7 @@ const App = () => {
       {/* <h2>Numbers</h2> */}
       <Person searchKey={searchKey} deleteContact={deleteContact} />
     </div>
-  );
-};
+  )
+}
 
-export default App;
+export default App
