@@ -83,7 +83,7 @@ const App = () => {
     }
 
     //console.log("Add new contact", persons);
-
+    //Refactor the code
     const sendData = async () => {
       try {
         const response = await contactService.create(contactObject)
@@ -171,7 +171,7 @@ const App = () => {
   }
 
   return (
-    <div>
+    <div className='absolute top-0 z-[-2] h-screen w-screen bg-white bg-[radial-gradient(100%_50%_at_50%_0%,rgba(0,163,255,0.13)_0,rgba(0,163,255,0)_50%,rgba(0,163,255,0)_100%)]'>
       <h2 className='flex justify-center py-5  text-4xl font-italic tracking-tight text-green-900 sm:text-6xl'>
         Phonebook
       </h2>

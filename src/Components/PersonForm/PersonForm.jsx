@@ -86,8 +86,8 @@ const PersonForm = ({
           className='peer-focus:font-medium 
         absolute 
         text-sm
-       text-grey-500
-       dark:text-grey-400 
+        text-gray-500
+       dark:text-gray-400
        duration-300 
        transform -translate-y-6 
        scale-75 top-3 -z-10 
