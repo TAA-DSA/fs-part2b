@@ -84,15 +84,29 @@ const App = () => {
 
     //console.log("Add new contact", persons);
     //Refactor the code
+    const warning = `${contactObject.name} already added to phone book, replace the old number with a new one ?`
+
     const sendData = async () => {
       try {
-        const response = await contactService.create(contactObject)
-        setPersons([...persons, response.data])
-        console.log('Contact added successfully')
-        setMessage(`Added ${response.data.name}`)
-        setTimeout(() => {
-          setMessage('')
-        }, 5000)
+        if (
+          persons.some(
+            (ele) =>
+              ele.name.toLowerCase() === contactObject.name.toLocaleLowerCase()
+          )
+        ) {
+          if (window.confirm(warning)) {
+            //console.log("Update number");
+            updateNumber()
+          } else {
+            const response = await contactService.create(contactObject)
+            setPersons([...persons, response.data])
+            console.log('Contact added successfully')
+            setMessage(`Added ${response.data.name}`)
+            setTimeout(() => {
+              setMessage('')
+            }, 5000)
+          }
+        }
       } catch (error) {
         const dispalyWarning = error.response.data.error
         setErrorMessage(dispalyWarning)
@@ -101,22 +115,7 @@ const App = () => {
         }, 5000)
       }
     }
-
-    const warning = `${contactObject.name} already added to phone book, replace the old number with a new one ?`
-
-    if (
-      persons.some(
-        (ele) =>
-          ele.name.toLowerCase() === contactObject.name.toLocaleLowerCase()
-      )
-    ) {
-      if (window.confirm(warning)) {
-        //console.log("Update number");
-        updateNumber()
-      }
-    } else {
-      sendData()
-    }
+    sendData()
   }
 
   const handleChange = (e) => {
