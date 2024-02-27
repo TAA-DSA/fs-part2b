@@ -1,10 +1,10 @@
 const Person = ({ searchKey, deleteContact }) => {
   //console.log("Hello from person component");
   return (
-    <div className='flex flex-col m-20'>
+    <div className='flex flex-col m-20 '>
       <div className='-m-1.5 overflow-x-auto'>
         <div className='p-1.5 min-w-full inline-block align-middle'>
-          <div className='border overflow-hidden dark:border-gray-700'>
+          <div className='border rounded-lg overflow-hidden dark:border-gray-700'>
             <table className='min-w-full divide-y divide-gray-200 dark:divide-gray-700'>
               <thead>
                 <tr>

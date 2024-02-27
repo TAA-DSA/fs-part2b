@@ -32,13 +32,12 @@ const App = () => {
     fetchData()
   }, [])
 
-  console.log('render', persons.length, 'persons')
+  console.log('render...', persons.length, 'persons')
 
   const addContact = (e) => {
     e.preventDefault()
 
     //console.log("addContact", e.target.value);
-
     const contactObject = {
       name: newName,
       number: newNumbers,
@@ -47,75 +46,71 @@ const App = () => {
 
     console.log('Name', contactObject.name)
 
-    const updateNumber = () => {
-      persons.some((item) => {
-        if (
-          item.name.toLocaleLowerCase() ===
-          contactObject.name.toLocaleLowerCase()
-        ) {
-          const id = item.id
-          console.log('id from put request', id)
-          const numberUpdate = async () => {
-            try {
-              const response = await contactService.update(id, contactObject)
-              console.log(response.data)
-              const updatedNumber = response.data.number
-              //console.log(updatedNumber);
-              const updateState = persons.map((person) =>
-                person.name === response.data.name
-                  ? { ...person, number: updatedNumber }
-                  : person
-              )
-              console.log(updateState)
-              setPersons(updateState)
-              setNewNumbers(updatedNumber)
-              setTimeout(() => {
-                setNewNumbers(null)
-              }, 5000)
-              console.log('Number from put request', newNumbers)
-            } catch (error) {
-              console.log('Error updating number', error)
-            }
-          }
-          numberUpdate()
-        }
-      })
-    }
-
     //console.log("Add new contact", persons);
     //Refactor the code
+
     const warning = `${contactObject.name} already added to phone book, replace the old number with a new one ?`
 
-    const sendData = async () => {
-      try {
-        if (
-          persons.some(
-            (ele) =>
-              ele.name.toLowerCase() === contactObject.name.toLocaleLowerCase()
-          )
-        ) {
-          if (window.confirm(warning)) {
-            //console.log("Update number");
-            updateNumber()
-          } else {
-            const response = await contactService.create(contactObject)
-            setPersons([...persons, response.data])
-            console.log('Contact added successfully')
-            setMessage(`Added ${response.data.name}`)
-            setTimeout(() => {
-              setMessage('')
-            }, 5000)
-          }
-        }
-      } catch (error) {
-        const dispalyWarning = error.response.data.error
-        setErrorMessage(dispalyWarning)
-        setTimeout(() => {
-          setErrorMessage('')
-        }, 5000)
-      }
+    // const id = persons.find(
+    //   (person) =>
+    //     person.name.toLocaleLowerCase() ===
+    //     contactObject.name.toLocaleLowerCase()
+    // ).id
+    if (
+      persons.some(
+        (person) =>
+          person.name.toLowerCase() === contactObject.name.toLocaleLowerCase()
+      )
+    ) {
+      const id = persons.find(
+        (person) =>
+          person.name.toLocaleLowerCase() ===
+          contactObject.name.toLocaleLowerCase()
+      ).id
+      console.log('id :', id)
+      window.confirm(warning) ? updateNumber(id, contactObject) : null
+    } else {
+      addNewContact(contactObject)
     }
-    sendData()
+  }
+
+  const addNewContact = async (contactObject) => {
+    try {
+      const response = await contactService.create(contactObject)
+      console.log('Contact added successfully :', response.data)
+      setPersons([...persons, response.data])
+      setNewName('')
+      setNewNumbers('')
+      setMessage(`Added ${response.data.name}`)
+      setTimeout(() => {
+        setMessage('')
+      }, 5000)
+    } catch (error) {
+      const displayWarning = error.response.data.error
+      setErrorMessage(displayWarning)
+      setTimeout(() => {
+        setErrorMessage('')
+      }, 5000)
+    }
+  }
+
+  const updateNumber = async (id, contactObject) => {
+    console.log('working on the code...')
+    try {
+      const response = await contactService.update(id, contactObject)
+      console.log(response)
+      const updatedPersons = persons.map((person) =>
+        person.id === id ? { ...person, number: response.data.number } : person
+      )
+      setPersons(updatedPersons)
+      setMessage(`updated number ${response.data.number}`)
+      setTimeout(() => {
+        setMessage('')
+      }, 5000)
+      setNewNumbers('')
+    } catch (error) {
+      console.error('Cannot Update', error)
+    }
   }
 
   const handleChange = (e) => {
