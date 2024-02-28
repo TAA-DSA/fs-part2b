@@ -49,7 +49,10 @@ const App = () => {
     //console.log("Add new contact", persons);
     //Refactor the code
 
-    const warning = `${contactObject.name} already added to phone book, replace the old number with a new one ?`
+    const messageConfirmUpdate = (id) => {
+      const warning = `${contactObject.name} already added to phone book, replace the old number with a new one ?`
+      return window.confirm(warning) ? updateNumber(id, contactObject) : null
+    }
 
     // const id = persons.find(
     //   (person) =>
@@ -68,7 +71,7 @@ const App = () => {
           contactObject.name.toLocaleLowerCase()
       ).id
       console.log('id :', id)
-      window.confirm(warning) ? updateNumber(id, contactObject) : null
+      messageConfirmUpdate(id)
     } else {
       addNewContact(contactObject)
     }
