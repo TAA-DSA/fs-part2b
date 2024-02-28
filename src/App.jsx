@@ -77,6 +77,16 @@ const App = () => {
     }
   }
 
+  //Display error message on front-end
+
+  const catchError = (error) => {
+    const errorWarning = error.response.data.error
+    setErrorMessage(errorWarning)
+    setTimeout(() => {
+      setErrorMessage('')
+    }, 5000)
+  }
+
   const addNewContact = async (contactObject) => {
     try {
       const response = await contactService.create(contactObject)
@@ -84,34 +94,38 @@ const App = () => {
       setPersons([...persons, response.data])
       setNewName('')
       setNewNumbers('')
-      setMessage(`Added ${response.data.name}`)
+      setMessage(`Contact added ${response.data.name}`)
       setTimeout(() => {
         setMessage('')
       }, 5000)
     } catch (error) {
-      const displayWarning = error.response.data.error
-      setErrorMessage(displayWarning)
-      setTimeout(() => {
-        setErrorMessage('')
-      }, 5000)
+      catchError(error)
+      // const displayWarning = error.response.data.error
+      // setErrorMessage(displayWarning)
+      // setTimeout(() => {
+      //   setErrorMessage('')
+      // }, 5000)
     }
   }
 
+  //Problem: state updating the state but displaying previous value
   const updateNumber = async (id, contactObject) => {
     console.log('working on the code...')
     try {
       const response = await contactService.update(id, contactObject)
-      console.log(response)
+      console.log('response', response)
       const updatedPersons = persons.map((person) =>
         person.id === id ? { ...person, number: response.data.number } : person
       )
+      console.log('UpdatedPersons :', updatedPersons)
       setPersons(updatedPersons)
-      setMessage(`updated number ${response.data.number}`)
+      setMessage(`Updated number to ${response.data.number}`)
       setTimeout(() => {
         setMessage('')
       }, 5000)
       setNewNumbers('')
     } catch (error) {
+      catchError(error)
       console.error('Cannot Update', error)
     }
   }
