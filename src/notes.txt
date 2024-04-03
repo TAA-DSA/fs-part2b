@@ -2,3 +2,30 @@
 2.18-2.20
 //University of Helsinki
 //Also remember to add functionality for the number options
+
+//Structure of  backend
+
+├── index.js
+├── app.js
+├── dist
+│   └── ...
+├── controllers
+│   └── notes.js
+├── models
+│   └── note.js
+├── package-lock.json
+├── package.json
+├── utils
+│   ├── config.js
+│   ├── logger.js
+│   └── middleware.js  
+
+//Use library express-async-error library
+//npm i express-async-errors
+//require('express-async-errors')
+
+//code looks like this: 
+notesRouter.delete('/:id', async (request, response) => {
+  await Note.findByIdAndDelete(request.params.id)
+  response.status(204).end()
+})
