@@ -4,6 +4,8 @@ import PersonForm from './Components/PersonForm/PersonForm'
 import Person from './Components/Person/Person'
 import { v4 as uuidv4 } from 'uuid'
 import contactService from '../src/Services/contact.js'
+import Login from './Components/Login/Login.jsx'
+
 import {
   Notification,
   ErrorMessage,
@@ -181,8 +183,13 @@ const App = () => {
     }
   }
 
+  const loginBtn = () => {
+    alert('login button press')
+  }
+
   return (
     <div className='absolute top-0 z-[-2] h-screen w-screen bg-white bg-[radial-gradient(100%_50%_at_50%_0%,rgba(0,163,255,0.13)_0,rgba(0,163,255,0)_50%,rgba(0,163,255,0)_100%)]'>
+      <Login liginSubmit={loginBtn} />
       <h2 className='flex justify-center py-5  text-4xl font-italic tracking-tight text-green-900 sm:text-6xl'>
         Phonebook
       </h2>
