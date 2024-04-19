@@ -23,6 +23,7 @@
 //Use library express-async-error library
 //npm i express-async-errors
 //require('express-async-errors')
+//advantage, no need to call the next exception
 
 //code looks like this: 
 notesRouter.delete('/:id', async (request, response) => {
