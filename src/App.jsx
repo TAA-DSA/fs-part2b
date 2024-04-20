@@ -193,7 +193,7 @@ const App = () => {
         Phonebook
       </h2>
       <Login loginSubmit={loginBtn} />
-      {message === '' ? null : <Notification message={message} />}
+      {/* {message === '' ? null : <Notification message={message} />}
       {errorMessage === '' ? null : (
         <ErrorMessage errorMessage={errorMessage} />
       )}
@@ -202,15 +202,15 @@ const App = () => {
         <Filter handleFilter={handleFilter} />
       </div>
       {/* <h3>Added a new contact</h3> */}
-      <PersonForm
+      {/* <PersonForm
         addContact={addContact}
         newName={newName}
         handleChange={handleChange}
         newNumbers={newNumbers}
         handleNumbers={handleNumbers}
-      />
+      /> */}
       {/* <h2>Numbers</h2> */}
-      <Person searchKey={searchKey} deleteContact={deleteContact} />
+      {/* <Person searchKey={searchKey} deleteContact={deleteContact} /> */}
     </div>
   )
 }
