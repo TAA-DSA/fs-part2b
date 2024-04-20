@@ -12,7 +12,7 @@ const PersonForm = ({
       <div className='py-5'>
         <h2
           className='text-center
-         text-green-600'
+         text-green-600 border-solid border-2 border-green-600 rounded'
         >
           Add a new contact
         </h2>
