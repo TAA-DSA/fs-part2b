@@ -184,9 +184,18 @@ const App = () => {
       null
     }
   }
+  //Login functions
+
+  const handleUserName = (e) => {
+    console.log(e.target.value)
+  }
+
+  const handlePassword = (e) => {
+    console.log(e.target.value)
+  }
 
   const loginBtn = (e) => {
-    console.log(e.target.value)
+    e.preventDefault()
     console.log('Users login form submitted')
   }
 
@@ -195,7 +204,11 @@ const App = () => {
       <h2 className='flex justify-center py-5  text-4xl font-italic tracking-tight text-green-900 sm:text-6xl'>
         Phonebook
       </h2>
-      <Login loginSubmit={loginBtn} />
+      <Login
+        loginSubmit={loginBtn}
+        handleUserName={handleUserName}
+        handlePassword={handlePassword}
+      />
       {message === '' ? null : <Notification message={message} />}
       {errorMessage === '' ? null : (
         <ErrorMessage errorMessage={errorMessage} />

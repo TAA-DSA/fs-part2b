@@ -64,7 +64,7 @@ const PersonForm = ({
       group'
       >
         <input
-          type='phone number'
+          type='phoneNumber'
           value={newNumbers}
           onChange={handleNumbers}
           className='block 
