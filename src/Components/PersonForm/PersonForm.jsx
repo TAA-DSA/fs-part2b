@@ -12,7 +12,7 @@ const PersonForm = ({
       <div className='py-5'>
         <h2
           className='text-center
-         text-green-600 border-solid border-2 border-green-600 rounded'
+         text-green-600'
         >
           Add a new contact
         </h2>
@@ -105,7 +105,7 @@ const PersonForm = ({
       <div className='flex justify-center'>
         <button
           type='submit'
-          className='flex align-middle gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-green-600 hover:text-green-800 disabled:opacity-50 disabled:pointer-events-none dark:text-green-500 dark:hover:text-green-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600'
+          className='flex align-middle px-6 pb-2 pt-2.5 gap-x-2 text-sm font-semibold rounded-lg border border-solid border-green-600 text-green-600 hover:text-green-800 disabled:opacity-50 disabled:pointer-events-none dark:text-green-500 dark:hover:text-green-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-green-800'
         >
           Save Contact
         </button>

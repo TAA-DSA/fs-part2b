@@ -184,7 +184,7 @@ const App = () => {
   }
 
   const loginBtn = () => {
-    alert('login button press')
+    console.log('Users want to login')
   }
 
   return (
