@@ -15,7 +15,7 @@ const Login = ({ loginSubmit }) => {
           placeholder='Password'
         />
       </div>
-      <div className='grid gap-4 grid-cols-2'>
+      <div className='grid gap-4 grid-cols-2 pb-4'>
         <button
           type='submit'
           className='px-6 pb-2 pt-2.5 gap-x-2 text-sm font-semibold rounded-lg border border-solid border-green-600 text-green-600 hover:text-green-800 disabled:opacity-50 disabled:pointer-events-none dark:text-green-500 dark:hover:text-green-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-green-800'

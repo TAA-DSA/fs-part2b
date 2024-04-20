@@ -19,6 +19,8 @@ const App = () => {
   const [filterWords, setFilterWords] = useState('')
   const [message, setMessage] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
+  const [userName, setUserName] = useState('')
+  const [password, setPassord] = useState('')
 
   useEffect(() => {
     console.log('effect')
@@ -183,7 +185,8 @@ const App = () => {
     }
   }
 
-  const loginBtn = () => {
+  const loginBtn = (e) => {
+    console.log(e.target.value)
     console.log('Users login form submitted')
   }
 
