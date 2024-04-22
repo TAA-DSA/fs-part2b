@@ -188,15 +188,17 @@ const App = () => {
 
   const handleUserName = (e) => {
     console.log(e.target.value)
+    setUserName(e.target.value)
   }
 
   const handlePassword = (e) => {
+    setPassord(e.target.value)
     console.log(e.target.value)
   }
 
-  const loginBtn = (e) => {
+  const loginBtn = (e, userName, password) => {
     e.preventDefault()
-    console.log('Users login form submitted')
+    console.log('Users login form submitted', userName, password)
   }
 
   return (
