@@ -5,6 +5,7 @@ import Person from './Components/Person/Person'
 import { v4 as uuidv4 } from 'uuid'
 import contactService from '../src/Services/contact.js'
 import Login from './Components/Login/Login.jsx'
+import loginService from './Services/login.js'
 
 import {
   Notification,
@@ -20,7 +21,8 @@ const App = () => {
   const [message, setMessage] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
   const [userName, setUserName] = useState('')
-  const [password, setPassord] = useState('')
+  const [password, setPassword] = useState('')
+  const [user, setUser] = useState(null)
 
   useEffect(() => {
     console.log('effect')
@@ -190,15 +192,32 @@ const App = () => {
     console.log(e.target.value)
     setUserName(e.target.value)
   }
+  console.log('username :', userName)
 
   const handlePassword = (e) => {
-    setPassord(e.target.value)
+    setPassword(e.target.value)
     console.log(e.target.value)
   }
 
-  const loginBtn = (e, userName, password) => {
+  console.log('password :', password)
+
+  const loginBtn = async (e) => {
     e.preventDefault()
-    console.log('Users login form submitted', userName, password)
+    try {
+      const user = await loginService.login({
+        userName,
+        password,
+      })
+      setUser(user)
+      setUserName('')
+      setPassword('')
+    } catch (exception) {
+      setErrorMessage('Wrong Credentials')
+      setTimeout(() => {
+        setErrorMessage('')
+      }, 500)
+    }
+    // console.log('Users login form submitted', userName, password)
   }
 
   return (
@@ -208,6 +227,8 @@ const App = () => {
       </h2>
       <Login
         loginSubmit={loginBtn}
+        username={userName}
+        password={password}
         handleUserName={handleUserName}
         handlePassword={handlePassword}
       />
