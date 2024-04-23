@@ -8,8 +8,11 @@ const Notification = ({ message }) => {
 
 const ErrorMessage = ({ errorMessage }) => {
   return (
-    <div className='bg-red-300  text-red-500 text-2xl bore-2 border-gray rounded  p-4 mb-4'>
-      {errorMessage}
+    <div
+      className='bg-orange-100 mx-2 mb-2 border-l-4 border-orange-500 text-orange-700 p-4'
+      role='alert'
+    >
+      <strong className='font-bold'>{errorMessage}</strong>
     </div>
   )
 }

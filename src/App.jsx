@@ -24,19 +24,19 @@ const App = () => {
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
 
-  useEffect(() => {
-    console.log('effect')
-    const fetchData = async () => {
-      try {
-        const response = await contactService.getAll()
-        console.log(response)
-        setPersons(response.data)
-      } catch (error) {
-        console.error('Error fetching data', error)
-      }
-    }
-    fetchData()
-  }, [])
+  // useEffect(() => {
+  //   console.log('effect')
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await contactService.getAll()
+  //       console.log(response)
+  //       setPersons(response.data)
+  //     } catch (error) {
+  //       console.error('Error fetching data', error)
+  //     }
+  //   }
+  //   fetchData()
+  // }, [])
 
   console.log('render...', persons.length, 'persons')
 
@@ -52,19 +52,11 @@ const App = () => {
 
     console.log('Name', contactObject.name)
 
-    //console.log("Add new contact", persons);
-    //Refactor the code
-
     const messageConfirmUpdate = (id) => {
       const warning = `${contactObject.name} already added to phone book, replace the old number with a new one ?`
       return window.confirm(warning) ? updateNumber(id, contactObject) : null
     }
 
-    // const id = persons.find(
-    //   (person) =>
-    //     person.name.toLocaleLowerCase() ===
-    //     contactObject.name.toLocaleLowerCase()
-    // ).id
     if (
       persons.some(
         (person) =>
@@ -208,6 +200,7 @@ const App = () => {
         userName,
         password,
       })
+      contactService.setToken(user.token)
       setUser(user)
       setUserName('')
       setPassword('')
@@ -217,7 +210,6 @@ const App = () => {
         setErrorMessage('')
       }, 500)
     }
-    // console.log('Users login form submitted', userName, password)
   }
 
   return (
@@ -225,6 +217,12 @@ const App = () => {
       <h2 className='flex justify-center py-5  text-4xl font-italic tracking-tight text-green-900 sm:text-6xl'>
         Phonebook
       </h2>
+
+      {message === '' ? null : <Notification message={message} />}
+      {errorMessage === '' ? null : (
+        <ErrorMessage errorMessage={errorMessage} />
+      )}
+
       <Login
         loginSubmit={loginBtn}
         username={userName}
@@ -232,24 +230,24 @@ const App = () => {
         handleUserName={handleUserName}
         handlePassword={handlePassword}
       />
-      {message === '' ? null : <Notification message={message} />}
-      {errorMessage === '' ? null : (
-        <ErrorMessage errorMessage={errorMessage} />
-      )}
 
-      <div>
-        <Filter handleFilter={handleFilter} />
-      </div>
+      {user ? (
+        <>
+          <div>
+            <Filter handleFilter={handleFilter} />
+          </div>
 
-      <PersonForm
-        addContact={addContact}
-        newName={newName}
-        handleChange={handleChange}
-        newNumbers={newNumbers}
-        handleNumbers={handleNumbers}
-      />
-      {/* <h2>Numbers</h2> */}
-      <Person searchKey={searchKey} deleteContact={deleteContact} />
+          <PersonForm
+            addContact={addContact}
+            newName={newName}
+            handleChange={handleChange}
+            newNumbers={newNumbers}
+            handleNumbers={handleNumbers}
+          />
+
+          <Person searchKey={searchKey} deleteContact={deleteContact} />
+        </>
+      ) : null}
     </div>
   )
 }
