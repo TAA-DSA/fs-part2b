@@ -182,13 +182,13 @@ const App = () => {
 
   const handleUserName = (e) => {
     console.log(e.target.value)
-    setUserName(e.target.value)
+    //setUserName(e.target.value)
   }
   console.log('username :', userName)
 
   const handlePassword = (e) => {
     setPassword(e.target.value)
-    console.log(e.target.value)
+    //console.log(e.target.value)
   }
 
   console.log('password :', password)

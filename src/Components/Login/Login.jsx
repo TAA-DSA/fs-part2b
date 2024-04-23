@@ -9,11 +9,11 @@ const Login = ({
     <form className='max-w-sm mx-auto' onSubmit={loginSubmit}>
       <div className='mb-5'>
         <input
-          type='username'
-          onChange={handleUserName}
+          type='text'
           value={userName}
-          className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-transparent dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray dark:focus:ring-blue-500 dark:focus:border-blue-500'
+          onChange={handleUserName}
           placeholder='Username'
+          className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-transparent dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray dark:focus:ring-blue-500 dark:focus:border-blue-500'
         />
       </div>
       <div className='mb-5'>
