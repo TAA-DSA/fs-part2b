@@ -1,12 +1,12 @@
 const Login = ({
-  loginSubmit,
+  loginBtn,
   handleUserName,
   handlePassword,
   userName,
   password,
 }) => {
   return (
-    <form className='max-w-sm mx-auto' onSubmit={loginSubmit}>
+    <form className='max-w-sm mx-auto' onSubmit={loginBtn}>
       <div className='mb-5'>
         <input
           type='text'

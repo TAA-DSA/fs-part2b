@@ -38,7 +38,7 @@ const App = () => {
   //   fetchData()
   // }, [])
 
-  console.log('render...', persons.length, 'persons')
+  //console.log('render...', persons.length, 'persons')
 
   const addContact = (e) => {
     e.preventDefault()
@@ -147,6 +147,7 @@ const App = () => {
     setFilterWords(e.target.value.toLowerCase())
   }
 
+  //function for the search bar
   const searchKey = persons.filter((ele) =>
     ele.name.toLowerCase().includes(filterWords)
   )
@@ -178,17 +179,18 @@ const App = () => {
       null
     }
   }
+
   //Login functions
 
   const handleUserName = (e) => {
     console.log(e.target.value)
-    //setUserName(e.target.value)
+    setUserName(e.target.value)
   }
   console.log('username :', userName)
 
   const handlePassword = (e) => {
+    console.log(e.target.value)
     setPassword(e.target.value)
-    //console.log(e.target.value)
   }
 
   console.log('password :', password)
@@ -200,12 +202,13 @@ const App = () => {
         userName,
         password,
       })
-      contactService.setToken(user.token)
+      console.log(user)
+      //contactService.setToken(user.token)
       setUser(user)
       setUserName('')
       setPassword('')
     } catch (exception) {
-      setErrorMessage('Wrong Credentials')
+      setErrorMessage(exception.error)
       setTimeout(() => {
         setErrorMessage('')
       }, 500)
