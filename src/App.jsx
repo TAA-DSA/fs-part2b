@@ -203,7 +203,7 @@ const App = () => {
         password,
       })
       console.log(user)
-      //contactService.setToken(user.token)
+      contactService.setToken(user.token)
       setUser(user)
       setUserName('')
       setPassword('')
