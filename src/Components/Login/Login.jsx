@@ -2,8 +2,8 @@ const Login = ({
   loginBtn,
   handleUserName,
   handlePassword,
-  userName,
-  password,
+  // userName,
+  // password,
 }) => {
   return (
     <form className='max-w-sm mx-auto' onSubmit={loginBtn}>
